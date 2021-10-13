@@ -7,7 +7,23 @@
  * trimProperties({ name: '  jane  ' }) // returns a new object { name: 'jane' }
  */
 function trimProperties(obj) {
-  // ✨ implement
+  const trimmed = JSON.stringify(obj, (key, value) => {
+    if (typeof value === "string") {
+      return value.trim();
+    }
+    return value;
+  });
+  return JSON.parse(trimmed);
+
+  // ALTERNATE ROUTE TO SAME RESULT BELOW //
+  // if (!Array.isArray(obj) && typeof obj != "object") return obj;
+  // return Object.keys(obj).reduce((acc, key) => {
+  //     acc[key.trim()] =
+  //       typeof obj[key] == "string" ? obj[key].trim() : trimObj(obj[key]);
+  //     return acc;
+  //   },
+  //   Array.isArray(obj) ? [] : {}
+  // );
 }
 
 /**
@@ -19,7 +35,8 @@ function trimProperties(obj) {
  * trimPropertiesMutation({ name: '  jane  ' }) // returns the object mutated in place { name: 'jane' }
  */
 function trimPropertiesMutation(obj) {
-  // ✨ implement
+  Object.keys(obj).map((k) => (obj[k] = obj[k].trim()));
+  return obj;
 }
 
 /**
@@ -31,7 +48,7 @@ function trimPropertiesMutation(obj) {
  * findLargestInteger([{ integer: 1 }, { integer: 3 }, { integer: 2 }]) // returns 3
  */
 function findLargestInteger(integers) {
-  // ✨ implement
+  integers.reduce();
 }
 
 class Counter {
@@ -93,8 +110,8 @@ class Car {
    * @param {number} mpg - miles the car can drive per gallon of gas
    */
   constructor(name, tankSize, mpg) {
-    this.odometer = 0 // car initilizes with zero miles
-    this.tank = tankSize // car initiazes full of gas
+    this.odometer = 0; // car initilizes with zero miles
+    this.tank = tankSize; // car initiazes full of gas
     // ✨ initialize whatever other properties are needed
   }
 
@@ -156,4 +173,4 @@ module.exports = {
   Counter,
   Seasons,
   Car,
-}
+};
